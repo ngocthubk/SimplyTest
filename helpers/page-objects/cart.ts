@@ -29,7 +29,7 @@ export class Cart{
         await expect(this.ctCart).toBeVisible();
     }
 
-    /* Update  the Cart */
+    /* Update the Cart */
     async updateCart(){
         await this.ctUpdateCart.click();
         
@@ -54,7 +54,7 @@ export class Cart{
     async inputQuantityOfProduct(product: string, quantity: number){
         let ctQuantity = await this.getQuantityElement(product);
         await ctQuantity.fill('');
-        await ctQuantity.pressSequentially(quantity.toString(),{delay: 500});        
+        await ctQuantity.pressSequentially(quantity.toString()+'p',{delay: 500});        
         
     }
 
