@@ -1,4 +1,4 @@
-import { Page,expect } from '@playwright/test';
+import { Page,expect, Locator } from '@playwright/test';
 // @author: Thu Nguyen
 export class Cart{
 
@@ -34,16 +34,19 @@ export class Cart{
         await this.ctUpdateCart.click();
         
     }
-    
+    async getQuantityElement(product: string):Promise<Locator>{
+        let ctProductName = await this.page.getByText(product);
+        let ctTd = await this.page.locator('.product-name').filter({ has: ctProductName });
+        let ctTr = await this.page.locator('tr').filter({has : ctTd});
+        return await ctTr.locator('[aria-label="Product quantity"]');
+
+    }
     /** Input the quantity of the product
      * @param product The product name
      * @param quantity The quantity of the product
        */
     async inputQuantityOfProduct(product: string, quantity: number){
-        let ctProductName = await this.page.getByText(product);
-        let ctTd = await this.page.locator('.product-name').filter({ has: ctProductName });
-        let ctTr = await this.page.locator('tr').filter({has : ctTd});
-        let ctQuantity = await ctTr.locator('[aria-label="Product quantity"]');
+        let ctQuantity = await this.getQuantityElement(product);
         await ctQuantity.fill(quantity.toString());
         await ctQuantity.press('End');
         
@@ -59,10 +62,9 @@ export class Cart{
     /** Verify if the quantity value is shown in the input box 
      * @param product Product name
     */
-    async verifyInput(product: string, quantity: number){
-        let productName = await this.page.getByText(product);
-        let td = await this.page.locator('.product-name').filter({ has: productName });
-        let tr = await this.page.locator('tr').filter({has : td});
-        await expect(tr.locator('[aria-label="Product quantity"]')).toHaveValue(quantity.toString());
+    async verifyQuantity(product: string, quantity: number){
+        let ctQuantity = await this.getQuantityElement(product);
+        await expect(ctQuantity).toHaveValue(quantity.toString());
+        await ctQuantity.press('End');
     }
 }

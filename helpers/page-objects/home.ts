@@ -45,10 +45,10 @@ export class Home{
         
     }
     
-    /** Verify the total quantity of all products on the right up corner of the home page
-     * @param quantity: The total number of products in the cart
+    /** Verify the total quantity of all items on the right up corner of the home page
+     * @param quantity: The total number of items in the cart
      */
-    async verifyCart(quantity: number){
+    async verifyQuantityOfItemInCart(quantity: number){
         if (quantity == 1)
             await expect(this.ctViewYourCart).toHaveText(quantity+' item');
         else
