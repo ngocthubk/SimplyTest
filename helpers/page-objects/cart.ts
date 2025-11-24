@@ -52,8 +52,9 @@ export class Cart{
      * @param quantity The quantity of the product
        */
     async inputQuantityOfProduct(product: string, quantity: number){
-        let ctQuantity = await this.getQuantityElement(product);
-        await ctQuantity.press('Delete')
+        let ctQuantity = await this.getQuantityElement(product);        
+        await ctQuantity.clear();
+        await ctQuantity.press('Delete',{delay: 500})
         await ctQuantity.pressSequentially(quantity.toString(),{delay: 500});                
         
     }
