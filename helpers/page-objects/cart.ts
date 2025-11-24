@@ -34,7 +34,7 @@ export class Cart{
         await this.ctUpdateCart.click();
         
     }
-    
+
     /** Get the Input element Quantity
      * @param product Product name
      * @returns Return the locator of Quantity Input
@@ -54,7 +54,7 @@ export class Cart{
     async inputQuantityOfProduct(product: string, quantity: number){
         let ctQuantity = await this.getQuantityElement(product);
         await ctQuantity.fill('');
-        await ctQuantity.pressSequentially(quantity.toString());        
+        await ctQuantity.pressSequentially(quantity.toString(),{delay: 500});        
         
     }
 
@@ -65,7 +65,7 @@ export class Cart{
     async increaseQuantityOfProduct(product: string, step: number){
         let ctQuantity = await this.getQuantityElement(product);        
         for (let i=0; i< step;i++)
-            await ctQuantity.press('ArrowUp');
+            await ctQuantity.press('ArrowUp',{delay: 500});
         
     }
 
