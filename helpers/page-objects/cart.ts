@@ -34,6 +34,10 @@ export class Cart{
         await this.ctUpdateCart.click();
         
     }
+    /** Get the Input element Quantity
+     * @param product Product name
+     * @returns Return the locator of Quantity Input
+      */
     async getQuantityElement(product: string):Promise<Locator>{
         let ctProductName = await this.page.getByText(product);
         let ctTd = await this.page.locator('.product-name').filter({ has: ctProductName });
@@ -65,6 +69,6 @@ export class Cart{
     async verifyQuantity(product: string, quantity: number){
         let ctQuantity = await this.getQuantityElement(product);
         await expect(ctQuantity).toHaveValue(quantity.toString());
-        await ctQuantity.press('End');
+        await ctQuantity.press('Tab');
     }
 }
