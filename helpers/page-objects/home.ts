@@ -18,6 +18,7 @@ export class Home{
         this.ctViewCart = this.page.getByTitle("View cart");       
         this.ctViewYourCart = this.page.getByTitle('View your shopping cart').locator('.count');
      }
+     
     /**
      * Add a product to a cart
      * @param product: Product name

@@ -34,6 +34,7 @@ export class Cart{
         await this.ctUpdateCart.click();
         
     }
+    
     /** Get the Input element Quantity
      * @param product Product name
      * @returns Return the locator of Quantity Input
@@ -45,14 +46,26 @@ export class Cart{
         return await ctTr.locator('[aria-label="Product quantity"]');
 
     }
+
     /** Input the quantity of the product
      * @param product The product name
      * @param quantity The quantity of the product
        */
     async inputQuantityOfProduct(product: string, quantity: number){
         let ctQuantity = await this.getQuantityElement(product);
-        await ctQuantity.fill(quantity.toString());
-        await ctQuantity.press('End');
+        await ctQuantity.fill('');
+        await ctQuantity.pressSequentially(quantity.toString());        
+        
+    }
+
+    /** Increase the quantity of the product by @step
+     * @param product The product name
+     * @param step The quantity of the product
+       */
+    async increaseQuantityOfProduct(product: string, step: number){
+        let ctQuantity = await this.getQuantityElement(product);        
+        for (let i=0; i< step;i++)
+            await ctQuantity.press('ArrowUp');
         
     }
 
@@ -69,6 +82,6 @@ export class Cart{
     async verifyQuantity(product: string, quantity: number){
         let ctQuantity = await this.getQuantityElement(product);
         await expect(ctQuantity).toHaveValue(quantity.toString());
-        await ctQuantity.press('Tab');
+        
     }
 }
