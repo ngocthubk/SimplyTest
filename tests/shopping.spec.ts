@@ -3,6 +3,7 @@ import {Home} from '../helpers/page-objects/home';
 import {Cart} from '../helpers/page-objects/cart'
 import { afterEach } from 'node:test';
 
+// @Author: Thu Nguyen
 test.describe('Go Shopping',()=> {
     [       
     {product: 'Album'},

@@ -42,8 +42,9 @@ export class Cart{
     async getQuantityElement(product: string):Promise<Locator>{
         let ctProductName = await this.page.getByText(product);
         let ctTd = await this.page.locator('.product-name').filter({ has: ctProductName });
-        let ctTr = await this.page.locator('tr').filter({has : ctTd});
-        return await ctTr.locator('[aria-label="Product quantity"]');
+        return await this.page.locator('tr')
+                    .filter({has : ctTd})
+                    .locator('[aria-label="Product quantity"]');
 
     }
 

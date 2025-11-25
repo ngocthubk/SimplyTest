@@ -34,8 +34,9 @@ export class Home{
       */
     async goToCart(product: string){
         let addToCart = await this.page.locator(this.ctAddToCart.replace("{replaceText}",product))
-        let parent = await this.page.getByRole("listitem").filter({ has: addToCart })
-        await parent.getByTitle("View cart").click();
+        await this.page.getByRole("listitem")
+             .filter({ has: addToCart })
+             .getByTitle("View cart").click();
     }
 
     /**
